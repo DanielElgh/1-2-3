@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <algorithm>
 #include <ctime>
-#include <cmath>
+
 int randomizer(int i) { return std::rand() % i; }
 
 int main() {
