@@ -1,4 +1,5 @@
-#include <cstdio>
+#include <iostream>
+#include <iomanip>
 #include <cstdlib>
 #include <ctime>
 
@@ -30,8 +31,12 @@ int main() {
             }
         }
     }
-    double winrate = static_cast<double>(rounds - lost) / rounds * 100;
-    printf("Lost %d out of %d rounds.\nWinrate is %.4f%%\n", lost,
-        rounds, winrate);
+    double winratio = static_cast<double>(rounds - lost) / rounds;
+    std::cout << std::setprecision(5)
+              << " Played.........: " << rounds          << std::endl
+              << " Lost...........: " << lost            << std::endl
+              << " Won............: " << (rounds - lost) << std::endl
+              << " Probability....: " << winratio * 100  << '%' << std::endl;
+
     return 0;
 }
