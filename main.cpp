@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 
 void shuffle_deck(unsigned int arr[], const size_t size) {
     for (size_t i = 0; i < size; i++) {
@@ -13,12 +14,15 @@ void shuffle_deck(unsigned int arr[], const size_t size) {
 }
 
 int main() {
+    using namespace std::chrono;
     const unsigned int rounds = 10000000U;
     const size_t deckSize = 52;
     unsigned int lost = 0;
     unsigned int deck[deckSize] = {
         1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3
     };
+    steady_clock::time_point start = steady_clock::now();
+
     std::srand(static_cast<int>(std::time(NULL)));
     for (unsigned int played = 0; played < rounds; played++) {
         shuffle_deck(deck, deckSize);
@@ -31,12 +35,17 @@ int main() {
             }
         }
     }
+
+    steady_clock::time_point finish = steady_clock::now();
+    nanoseconds elapsed = duration_cast<nanoseconds>(finish-start);
+
     double winratio = static_cast<double>(rounds - lost) / rounds;
     std::cout << std::setprecision(5)
-              << " Played.........: " << rounds          << std::endl
-              << " Lost...........: " << lost            << std::endl
-              << " Won............: " << (rounds - lost) << std::endl
-              << " Probability....: " << winratio * 100  << '%' << std::endl;
-
+              << " Played..............: " << rounds          << std::endl
+              << " Lost................: " << lost            << std::endl
+              << " Won.................: " << (rounds - lost) << std::endl
+              << " Probability.........: " << winratio * 100  << '%' << std::endl
+              << " Mean time per round.: " << elapsed.count()/rounds << " ns" << std::endl
+              << " Total time elapsed..: " << elapsed.count() << " ns" << std::endl;
     return 0;
 }
