@@ -4,10 +4,21 @@
 #include <ctime>
 #include <chrono>
 
+static unsigned int g_seed;
+
+inline void fast_srand(int seed) {
+    g_seed = seed;
+}
+
+inline int fastrand() {
+    g_seed = (214013*g_seed+2531011);
+    return (g_seed>>16)&0x7FFF;
+}
+
 void shuffle_deck(unsigned int arr[], const size_t size) {
     for (size_t i = 0; i < size; i++) {
         unsigned int tmp = arr[i];
-        unsigned int rand = std::rand() % size;
+        unsigned int rand = fastrand() % size;
         arr[i] = arr[rand];
         arr[rand] = tmp;
     }
@@ -23,7 +34,7 @@ int main() {
     };
     steady_clock::time_point start = steady_clock::now();
 
-    std::srand(static_cast<int>(std::time(NULL)));
+    fast_srand(static_cast<int>(std::time(NULL)));
     for (unsigned int played = 0; played < rounds; played++) {
         shuffle_deck(deck, deckSize);
         unsigned int n = 0;
