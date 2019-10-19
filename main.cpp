@@ -56,7 +56,7 @@ int main() {
               << " Lost................: " << lost            << std::endl
               << " Won.................: " << (rounds - lost) << std::endl
               << " Probability.........: " << winratio * 100  << '%' << std::endl
-              << " Mean time per round.: " << elapsed.count()/rounds << " ns" << std::endl
-              << " Total time elapsed..: " << elapsed.count() << " ns" << std::endl;
+              << " Mean time per round.: " << elapsed.count()/rounds << " nanoseconds" << std::endl
+              << " Total time elapsed..: " << elapsed.count()/(1000*1000) << " milliseconds" << std::endl;
     return 0;
 }
