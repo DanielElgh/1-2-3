@@ -1,8 +1,9 @@
 PROJECT := 123
 SRC := $(wildcard *.cpp)
 OBJ := $(SRC:%.cpp=%.o)
+#CXX = g++-8
 
-CXXFLAGS := -Ofast -march=native -mtune=native -Wall -Wextra -Wpedantic
+CXXFLAGS := -Ofast -march=native -mtune=native -Wall -Wextra -Wpedantic -std=c++11 -pthread
 
 $(PROJECT): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^
