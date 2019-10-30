@@ -3,13 +3,14 @@ SRC := $(wildcard *.cpp)
 OBJ := $(SRC:%.cpp=%.o)
 #CXX = g++-8
 
-CXXFLAGS := -Ofast -march=native -mtune=native -Wall -Wextra -Wpedantic -std=c++11 -pthread
+CXXFLAGS := -Ofast -march=native -mtune=native -std=c++11 -pthread
+WARNFLAGS := -pedantic -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual
 
 $(PROJECT): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 %.o: %.cpp
-	$(CXX) -c $(CXXFLAGS) -o $@ $<
+	$(CXX) -c $(CXXFLAGS) $(WARNFLAGS) -o $@ $<
 
 
 .PHONY: all
