@@ -152,5 +152,8 @@ int main(int argc, char **argv) {
         p_thread_pool[i].join();
     }
 
+    // Release allocated storage space.
+    delete[] p_thread_pool;
+
     return 0;
 }
